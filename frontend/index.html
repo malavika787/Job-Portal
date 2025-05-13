@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>LurkForWork</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- You can add your styles and scripts here -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/global.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script type="module" src="src/main.js"></script>
+</head>
+<body>
+    <!-- This is an example app structure, you can modify this as much as you choose --> 
+    <header>
+        
+        <nav class="navbar">
+            <div class="brand">LurkForWork</div>
+            <ul class="nav-links">
+                <li><a href="#" id="add-job-btn" style="display: none">Add Job</a></li>
+                <li><a href="#" id="job-page-btn" style="display: none">Jobs</a></li>
+                <li><a href="#" id="profile-btn" style="display: none">Profile</a></li>
+                <li><a href="#" id="logout-btn" style="display: none">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="errorModalLabel">Error</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p id="error-message"> Login Failed. Please Try again. </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!--Login Form-->
+    <div class = "login" id="login-page">
+        <div class="login-box">
+            <form class="login-form" id="login-form">
+                <h2 class="login-header">Log in for Work</h2>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"required >
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign In</button>
+                <p id="error-message" class="text-danger mt-2" style="display: none;"></p> 
+            </form>
+        </div>
+        <div class="new-user">
+            <a class="new-user-redirect">New to LurkForWork?</a>
+            <button type="submit" class="btn-create-account" id="go-to-signup">Create Account</button>
+        </div>
+    </div>
+
+    <!--Sign Up Form-->
+    <div class="sign-up" id="signup-page" style="display: none;">
+        <div class="signup-box">
+            <form class="signup-form" id="signup-form" novalidate>
+                <h2 class="sognup-header">Sign Up to Find Work</h2>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="signup-name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="signup-name" required>
+                        <div class="valid-feedback">Looks good!</div>
+                    </div>
+    
+                    <div class="col-12">
+                        <label for="signup-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="signup-email" required>
+                        <div class="invalid-feedback">Please enter a valid email.</div>
+                    </div>
+    
+                    <div class="col-12">
+                        <label for="signup-password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="signup-password" required>
+                        <div class="valid-feedback">Looks good!</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="signup-password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="signup-confirm-password" required>
+                        <div class="valid-feedback">Looks good!</div>
+                    </div>
+    
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="signup-terms" required>
+                            <label class="form-check-label" for="signup-terms">
+                                Agree to terms and conditions
+                            </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Sign Up</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="new-user">
+            <a class="new-user-redirect">Already Have an Account?</a>
+            <button type="submit" class="btn-create-account" id="go-to-login">Log In</button>
+        </div>
+    </div>
+
+
+        <!-- app goes here --> 
+         <div id="job-feed"></div>
+         <div id="profile-page">
+            <div id="profile-container"></div>
+         </div>
+    </main>
+    <!--Modal for Adding a job-->
+    <!-- Add Job Modal -->
+<div class="modal fade" id="addJobModal" tabindex="-1" aria-labelledby="addJobModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <div class="modal-header">
+          <h5 class="modal-title" id="addJobModalLabel">Post a New Job</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body">
+          <form id="add-job-form">
+            <div class="mb-3">
+              <label for="job-title" class="form-label">Job Title</label>
+              <input type="text" class="form-control" id="job-title" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="job-date" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="job-date" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="job-description" class="form-label">Description</label>
+              <textarea class="form-control" id="job-description" rows="3" required></textarea>
+            </div>
+  
+            <div class="mb-3">
+              <label for="job-image" class="form-label">Upload Image</label>
+              <input class="form-control" type="file" id="job-image" accept="image/*">
+            </div>
+  
+            <button type="submit" class="btn btn-primary w-100">Post Job</button>
+          </form>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+<!-- Bootstrap Modal for Updating Job -->
+<div class="modal fade" id="updateJobModal" tabindex="-1" aria-labelledby="updateJobModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateJobModalLabel">Update Job</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="updateJobForm">
+            <div class="mb-3">
+              <label for="updateTitle" class="form-label">Title</label>
+              <input type="text" class="form-control" id="updateTitle" />
+            </div>
+            <div class="mb-3">
+              <label for="updateDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="updateDescription"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="updateStart" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="updateStart" />
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Comment Modal -->
+<div class="modal" tabindex="-1" id="commentModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Leave a Comment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea id="commentInput" class="form-control" rows="4" placeholder="Write your comment here..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="submitCommentButton">Comment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <footer>
+        <p>&copy; lurkforwork.com</p>
+    </footer>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
